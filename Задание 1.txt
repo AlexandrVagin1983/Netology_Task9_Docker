@@ -1,0 +1,95 @@
+
+1. Загрузите образ busybox последней версии
+2. Запустите новый контейнер busybox с командой ping сайта netology.ru, и количеством пингов 7, поименуйте контейнер pinger
+
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker run --name pinger -it busybox ping netology.ru -c 7
+PING netology.ru (188.114.98.229): 56 data bytes
+64 bytes from 188.114.98.229: seq=0 ttl=63 time=29.440 ms
+64 bytes from 188.114.98.229: seq=1 ttl=63 time=33.007 ms
+64 bytes from 188.114.98.229: seq=2 ttl=63 time=32.624 ms
+64 bytes from 188.114.98.229: seq=3 ttl=63 time=29.837 ms
+64 bytes from 188.114.98.229: seq=4 ttl=63 time=34.743 ms
+64 bytes from 188.114.98.229: seq=5 ttl=63 time=34.936 ms
+64 bytes from 188.114.98.229: seq=6 ttl=63 time=31.785 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 29.440/32.338/34.936 ms
+
+3. Выведите на список всех контейнеров - запущенных и остановленных
+
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS                          PORTS     NAMES
+1f7fdff9e41e   busybox   "ping netology.ru -c…"   About a minute ago   Exited (0) About a minute ago             pinger
+
+4. Выведите на экран логи контейнера с именем pinger
+
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker logs pinger
+PING netology.ru (188.114.98.229): 56 data bytes
+64 bytes from 188.114.98.229: seq=0 ttl=63 time=29.440 ms
+64 bytes from 188.114.98.229: seq=1 ttl=63 time=33.007 ms
+64 bytes from 188.114.98.229: seq=2 ttl=63 time=32.624 ms
+64 bytes from 188.114.98.229: seq=3 ttl=63 time=29.837 ms
+64 bytes from 188.114.98.229: seq=4 ttl=63 time=34.743 ms
+64 bytes from 188.114.98.229: seq=5 ttl=63 time=34.936 ms
+64 bytes from 188.114.98.229: seq=6 ttl=63 time=31.785 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% pack
+
+5. Запустите второй раз контейнера с именем pinger
+
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker start pinger
+pinger
+
+6. Выведите на список всех контейнеров - запущенных и остановленных
+
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS                      PORTS     NAMES
+1f7fdff9e41e   busybox   "ping netology.ru -c…"   35 minutes ago   Exited (0) 41 seconds ago             pinger
+
+7. Выведите на экран логи контейнера с именем pinger
+
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker logs pinger 
+PING netology.ru (188.114.98.229): 56 data bytes
+64 bytes from 188.114.98.229: seq=0 ttl=63 time=29.440 ms
+64 bytes from 188.114.98.229: seq=1 ttl=63 time=33.007 ms
+64 bytes from 188.114.98.229: seq=2 ttl=63 time=32.624 ms
+64 bytes from 188.114.98.229: seq=3 ttl=63 time=29.837 ms
+64 bytes from 188.114.98.229: seq=4 ttl=63 time=34.743 ms
+64 bytes from 188.114.98.229: seq=5 ttl=63 time=34.936 ms
+64 bytes from 188.114.98.229: seq=6 ttl=63 time=31.785 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 29.440/32.338/34.936 ms
+PING netology.ru (188.114.98.234): 56 data bytes
+64 bytes from 188.114.98.234: seq=0 ttl=63 time=28.662 ms
+64 bytes from 188.114.98.234: seq=1 ttl=63 time=30.640 ms
+64 bytes from 188.114.98.234: seq=2 ttl=63 time=31.663 ms
+64 bytes from 188.114.98.234: seq=3 ttl=63 time=30.459 ms
+64 bytes from 188.114.98.234: seq=4 ttl=63 time=29.718 ms
+64 bytes from 188.114.98.234: seq=5 ttl=63 time=30.368 ms
+64 bytes from 188.114.98.234: seq=6 ttl=63 time=33.320 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 28.662/30.690/33.320 ms
+
+8. Определите по логам общее количество запусков команды ping и какое общее количество отправленых запросов
+
+14 Пакетов передано, 14 пакетов получено.
+
+9.Удалите контейнер с именем pinger
+
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker rm pinger
+pinger
+
+10. Удалите образ busybox
+
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker rmi busybox
+Untagged: busybox:latest
+Untagged: busybox@sha256:650fd573e056b679a5110a70aabeb01e26b76e545ec4b9c70a9523f2dfaf18c6
+Deleted: sha256:ba5dc23f65d4cc4a4535bce55cf9e63b068eb02946e3422d3587e8ce803b6aab
+Deleted: sha256:95c4a60383f7b6eb6f7b8e153a07cd6e896de0476763bef39d0f6cf3400624bd
+

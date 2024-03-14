@@ -1,0 +1,74 @@
+1. Загрузите образ node версии 15.14
+
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker pull node:21.6.1
+21.6.1: Pulling from library/node
+7bb465c29149: Pull complete
+2b9b41aaa3c5: Pull complete
+49b40be4436e: Pull complete
+c558fac597f8: Pull complete
+449619e06fe3: Pull complete
+6b44e74d2788: Pull complete
+fcf4568963c7: Pull complete
+b89246386465: Pull complete
+Digest: sha256:5951e42dd697b63a6bd9a4dfd610da952097f9db829ea659257104e7fd4fdfa6
+Status: Downloaded newer image for node:21.6.1
+docker.io/library/node:21.6.1
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview node:21.6.1
+
+2. Запустите контейнер с именем first_node из образа node версии 15.14 в фоновом режиме, подключив папку data из текущей директории в /var/first/data контейнера
+
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker run --name first_node --rm -d -v "/c/Users/Alexandr.Vagin/Desktop/nodejs/Projects/Домашнее задание/Task 9 Docker/data:/var/first/data" node:21.6.1 /bin/sleep infinity        
+f700f74c0bd417342570917345876dd32a615857bb691b366704c594b0759d13
+
+3. Запустите контейнер с именем second_node из образа node версии 15.14 в фоновом режиме, подключив папку data из текущей директории в /var/second/data контейнера
+
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker run --name second_node --rm -d -v "/c/Users/Alexandr.Vagin/Desktop/nodejs/Projects/Домашнее задание/Task 9 Docker/data:/var/first/data" node:21.6.1 /bin/sleep infinity       
+9c1121a6d93e163ac152a11c6092b947ba8fa84a479ce1fb5357cc070b6b5770
+
+4. Подключитесь к контейнеру first_node с помощью exec и создайте текстовый файл любого содержания в /var/first/data
+
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker exec -it first_node touch /var/first/data/test1.txt
+
+5. Добавьте еще один файл в папку data на хостовой машине
+
+Вручную добавил файл test2.txt
+
+6. Подключитесь к контейнеру second_node с помощью exec и получите список файлов в директории /var/second/data, выведете на экран содержимое файлов
+
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker exec -it second_node ls /var/first/data   
+test1.txt  test2.txt
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker exec -it second_node cat /var/first/data/test2.txt
+2 Нода
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker exec -it second_node cat /var/first/data/test1.txt
+1 Нода
+
+7. Остановите оба контейнера
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker stop first_node
+first_node
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker stop second_node
+second_node
+
+8. Удалите оба контейнера
+
+Task 9 Docker> docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+Они сами удалились после остановки, потому что запуск был с флагом --rm
+
+9. Удалите образ node версии 15.14
+
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> docker rmi node:21.6.1
+Untagged: node:21.6.1
+Untagged: node@sha256:5951e42dd697b63a6bd9a4dfd610da952097f9db829ea659257104e7fd4fdfa6
+Deleted: sha256:230404fef3df41eade2c60e7d92a58b33ebcb2b1d343f9e19e763b37292999fe
+Deleted: sha256:a8c0d5c06ef74757f304f62d5a414276161155ace0f1c28f09d5907272825bd4
+Deleted: sha256:df3991a61b5417071b817ff3ca76190d6915db0d00826b751dee705e0c76b0e0
+Deleted: sha256:039dfd20d013ff3308b70c4a85c982abbdd1429c0b203a4a73c85605678d1767
+Deleted: sha256:7ed3e2d59eb77380fed7705e32f729699580714b9d5ad9a4fee63cad14bc55c2
+Deleted: sha256:74f42f006855896bfec5d4b0aa1e8e8fafc99cfffdd02b815e7d5e56945771c4
+Deleted: sha256:7ac67e411506612ade9221362df05488f5b54413d8cf71ce1e5f37e1577ddcdd
+Deleted: sha256:dec6601e3c2d74e8815d49fd48cec1b2a3bb8c583b23fcb0629cb704f94d5a8f
+Deleted: sha256:1a5fc1184c481caeb279bce728e080daba423b5215282318ba86e9b8c388a2b4
+PS C:\Users\Alexandr.Vagin\Desktop\nodejs\Projects\Домашнее задание\Task 9 Docker> 
+
